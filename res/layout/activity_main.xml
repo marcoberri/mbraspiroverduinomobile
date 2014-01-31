@@ -111,6 +111,7 @@
             android:layout_column="2"
             android:layout_gravity="center_horizontal"
             android:layout_row="1"
+            android:onClick="callStop"
             android:contentDescription="Stop" />
 
         <ImageButton
