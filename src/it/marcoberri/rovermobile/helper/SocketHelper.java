@@ -29,6 +29,7 @@ public class SocketHelper {
 				try {
 					Log.d("SOCKET", "Server said:" + json.toString(2));
 				} catch (JSONException e) {
+					
 					e.printStackTrace();
 				}
 			}

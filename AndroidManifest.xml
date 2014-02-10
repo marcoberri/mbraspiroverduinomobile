@@ -17,7 +17,10 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="it.marcoberri.rovermobile.MainActivity"
-            android:label="@string/app_name" >
+            android:configChanges="keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +29,11 @@
         </activity>
 
         <service
-            android:name=".SocketIOService"
-            android:exported="false" />
+            android:name="it.marcoberri.rovermobile.helper.SocketIOService" 
+            android:exported="false"
+            android:enabled="true"
+            />
+        
     </application>
 
 </manifest>
