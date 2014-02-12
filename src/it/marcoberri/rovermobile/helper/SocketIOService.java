@@ -113,7 +113,7 @@ public class SocketIOService extends IntentService {
 
 	protected void sendBroadcast(String msg) {
 		final Intent broadcastIntent = new Intent();
-		broadcastIntent.setAction(PROCESS_RESPONSE);
+		broadcastIntent.setAction(TAG);
 		broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
 		broadcastIntent.putExtra(RESPONSE_STRING, msg);
 		sendBroadcast(broadcastIntent);

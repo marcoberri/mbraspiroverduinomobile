@@ -1,5 +1,7 @@
 package it.marcoberri.rovermobile;
 
+import com.google.gson.JsonObject;
+
 import it.marcoberri.rovermobile.helper.SocketIOService;
 import it.marcoberri.rovermobile.helper.SocketIOService.LocalBinder;
 import it.marcoberri.rovermobile.helper.SocketIOServiceReceiver;
@@ -15,13 +17,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
 	private static final String TAG = MainActivity.class.getName();
 	private Intent socketIntenet;
 	private SocketIOService socketIOService;
-	private SocketIOServiceReceiver receiver;
+	//private SocketIOServiceReceiver receiver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +34,6 @@ public class MainActivity extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_main);
 
-		IntentFilter filter = new IntentFilter(SocketIOService.PROCESS_RESPONSE);
-		filter.addCategory(Intent.CATEGORY_DEFAULT);
-		receiver = new SocketIOServiceReceiver();
-		registerReceiver(receiver, filter);
 
 		socketIntenet = new Intent(this, SocketIOService.class);
 		socketIntenet.setData(Uri.parse("http://172.18.205.88:3001"));
@@ -62,6 +61,31 @@ public class MainActivity extends Activity {
 		}
 	};
 
+	
+	
+	public void camReset(View v) {
+		cam("reset");
+	}
+
+	public void camLeft(View v) {
+		cam("left");
+	}
+
+	public void camRight(View v) {
+		cam("right");
+	}
+
+
+	public void camUp(View v) {
+		cam("up");
+	}
+	
+	public void camDown(View v) {
+		cam("down");
+	}
+	
+	
+	
 	public void callStop(View v) {
 		move("stop");
 	}
@@ -84,7 +108,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	public void onPause() {
-		unregisterReceiver(receiver);
+	//	unregisterReceiver(receiver);
 		super.onPause();
 	}
 
@@ -94,14 +118,19 @@ public class MainActivity extends Activity {
 			socketIOService.emit("/move/" + move);
 		}
 		Log.d(TAG, "end Call send " + move);
-
 	}
 
+	private void cam(String cam) {
+		Log.d(TAG, "Call cam " + cam);
+		if (socketIOService != null) {
+			socketIOService.emit("/cam/" + cam);
+		}
+		Log.d(TAG, "end Call cam " + cam);
+	}
+
+	
 	@Override
 	protected void onResume() {
-		IntentFilter filter = new IntentFilter(SocketIOService.PROCESS_RESPONSE);
-		receiver = new SocketIOServiceReceiver();
-		registerReceiver(receiver, filter);
 		super.onResume();
 	}
 }

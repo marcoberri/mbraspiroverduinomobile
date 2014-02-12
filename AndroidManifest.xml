@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -33,6 +33,14 @@
             android:exported="false"
             android:enabled="true"
             />
+        
+        <receiver android:name="it.marcoberri.rovermobile.helper.SocketIOServiceReceiver">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+      			<action android:name="it.marcoberri.rovermobile.helper.SocketIOService"/>
+            </intent-filter>
+            
+        </receiver>
         
     </application>
 
